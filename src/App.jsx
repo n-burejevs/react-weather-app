@@ -16,7 +16,7 @@ const currentURL = "http://localhost/weather-a/index.php";
 const [weatherData, setWeatherData] = React.useState()/*localStorage.getItem('current') 
  ? JSON.parse(localStorage.getItem('current')) : "")*/
 
-const [ip, setIP] = React.useState("188.112.190.192")/*localStorage.getItem('ipforweather') 
+const [city, setCity] = React.useState("Riga")/*localStorage.getItem('ipforweather') 
  ? JSON.parse(localStorage.getItem('ipforweather')) : "");*/
   
 const [weatherForecastData, setWeatherForecastData] =  React.useState()/*localStorage.getItem('forecast') 
@@ -34,7 +34,7 @@ async function requestWeather()
   try {
     const response = await fetch(currentURL, {
        method: "POST",
-       body: JSON.stringify({ location: ip }),
+       body: JSON.stringify({ location: city }),
 });
 
     if (!response.ok) {
@@ -46,7 +46,7 @@ async function requestWeather()
         if(result.status == "success") { 
             let currentWeather = JSON.parse(result.message);
           setWeatherData(currentWeather);
-         // localStorage.setItem('current', JSON.stringify(currentWeather));
+          localStorage.setItem('current', JSON.stringify(currentWeather));
         }
     
     //console.log(JSON.parse(result.message))
@@ -62,7 +62,7 @@ async function requestWeather()
   try {
     const response = await fetch(forecastURL, {
        method: "POST",
-       body: JSON.stringify({ location: ip }),
+       body: JSON.stringify({ location: city }),
 });
 
     if (!response.ok) {
@@ -80,7 +80,7 @@ async function requestWeather()
             setHourForecast((forecastWeather.forecast.forecastday[0].hour))
               setWhatDate(forecastWeather.forecast.forecastday[0].date.substring(5))
 
-                 //localStorage.setItem('forecast', JSON.stringify(forecastWeather));
+                 localStorage.setItem('forecast', JSON.stringify(forecastWeather));
         }
     
   } catch (error) {
@@ -90,16 +90,31 @@ async function requestWeather()
 
 React.useEffect(() =>{
 
-requestWeather();
-  requestForecast();
+/*requestWeather();
+  requestForecast();*/
 
     
     let savedAtTime = localStorage.getItem('updatedAt')
-    //non existing or old, then make api reqeusts
-    if (savedAtTime == null || Date.now() > Number(savedAtTime) + 6000)//60000 is 10 min 10/6 =? 1.33 min?
+    //non existing or old weather data, if so then make api reqeusts to update data
+    if (savedAtTime == null || Date.now() > Number(savedAtTime) + 30000)//60000 is 10 min 30000 is 0.5min
     {
         localStorage.setItem('updatedAt',Date.now());
         console.log("time to call fetch again")
+        requestWeather();
+          requestForecast();
+    }
+    else if (savedAtTime !== null)
+    {//load whats saved?
+      console.log("already have fresh one")
+      let forecastSaved = localStorage.getItem('forecast') ? JSON.parse(localStorage.getItem('forecast')) : ""
+      let currentSaved = localStorage.getItem('current') ? JSON.parse(localStorage.getItem('current')) : ""
+
+    setWeatherData(currentSaved);
+    setWeatherForecastData(forecastSaved)
+
+      setHourForecast((forecastSaved.forecast.forecastday[0].hour))
+              setWhatDate(forecastSaved.forecast.forecastday[0].date.substring(5))
+
     }
 
    
@@ -135,23 +150,10 @@ else{
   
   
     
-  //getting and saving ip from new user or getting an existing ip
-   // let savedIP = localStorage.getItem("ipforweaher");
-        //smh " is the value of savedIP, min ip lenght must be 6?
-      // console.log(savedIP);
-      // CORS request did not succeed). Status code: (null)
-        //getIPData();
+  //getting and saving city from new user
+   // let savedCity = localStorage.getItem("cityWeather");
+      
 },[])
-
- 
-  
-  //ip address from the API
-  /*async function getIPData(){
-     const res = await fetch("https://api.ipify.org/?format=json");
-     console.log(res.data);
-     setIP(res.data.ip);
-      localStorage.setItem("ipforweaher", JSON.stringify(res.data.ip));
-  };*/
 
   return (
   
