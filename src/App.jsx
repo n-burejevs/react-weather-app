@@ -93,7 +93,7 @@ React.useEffect(() =>{
 /*requestWeather();
   requestForecast();*/
 
-    
+    //after refresh or quick revisit to an app, there is no need to call requests every time
     let savedAtTime = localStorage.getItem('updatedAt')
     //non existing or old weather data, if so then make api reqeusts to update data
     if (savedAtTime == null || Date.now() > Number(savedAtTime) + 30000)//60000 is 10 min 30000 is 0.5min
@@ -117,39 +117,6 @@ React.useEffect(() =>{
 
     }
 
-   
-
-       
-
-
-//update every 10min?
-/*
-if(localStorage.setItem('updatedAt',Date.now()) == null ||localStorage.setItem('updatedAt',Date.now()) == "")
-{
-  //1st time request
-    requestWeather();
-
-    localStorage.setItem('updatedAt',Date.now());
-}
-else{
-  //after refresh or quick revisit to an app
-  let savedAtTime = localStorage.getItem('updatedAt')
-  //re-request new data after 10 min
-    if (Date.now() > Number(savedAtTime) + 600000)
-      {
-        requestWeather();
-         requestForecast();
-          localStorage.setItem('updatedAt',Date.now());
-      }
-      else{
-        setHourForecast((weatherForecastData.forecast.forecastday[0].hour))
-              setWhatDate(weatherForecastData.forecast.forecastday[0].date.substring(5))
-      }
-}
-*/
-  
-  
-    
   //getting and saving city from new user
    // let savedCity = localStorage.getItem("cityWeather");
       
