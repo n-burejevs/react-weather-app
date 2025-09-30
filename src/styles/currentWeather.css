@@ -1,0 +1,109 @@
+.current-weather{
+    margin-top: 40px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 15px;
+}
+.location-name{
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+.curr-weaher-text{ font-weight: bold;}
+
+
+.icon-temp-feelslike-container{
+    margin-top: 15px;
+    display: flex;
+}
+.current-temp{
+    font-size: 38px;
+    font-weight: 600;
+    color: rgb(81, 82, 82);
+}
+.wind-arrow{
+    width: 8px;
+    margin-left: 10px;
+}
+.current-weather-clock, .feelslike-temp{
+   color: rgba(0, 0, 0, 0.47);
+}
+.icon-and-temp{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+@media (width >= 48em){
+    
+.current-weather{
+
+    width: 600px;
+}
+
+
+
+
+
+.text-and-feelslike{
+    display: grid;
+    /*grid-template-rows: auto auto;*/
+    row-gap: 0px;
+}
+.icon-temp-feelslike-container{
+   
+    flex-direction: row;
+    column-gap: 20px;
+}
+
+.misc-weaher-data-row{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    column-gap: 20px;
+}
+.misc-data-item{
+    display: grid;
+   /* grid-template-columns: auto;*/
+    text-align: center;
+}
+
+
+
+}
+
+@media (width < 48em){
+    .current-weather{
+        width: 100%;
+    }
+    .current-temp{
+        font-size: 30px;
+    }
+    .icon-and-temp img{
+        width: 55px
+    }
+
+    .text-and-feelslike{
+        margin-left: auto;
+    }
+    .current-temp{
+        text-wrap: nowrap;
+    }
+
+.icon-temp-feelslike-container{
+   
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.misc-weaher-data-row{
+    justify-content: space-between;
+    display: grid;
+    grid-template-columns: auto auto;
+    row-gap: 15px;
+
+}
+.misc-data-item span+span{
+    margin-left: 5px;
+}
+
+}
