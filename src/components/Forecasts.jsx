@@ -3,7 +3,9 @@ import React from "react";
 import '../styles/forecastWeather.css';
 
 //TO DO:
+//"scroll" into the hour part at current time
 //https://react.dev/reference/react/useRef -> scrollIntoView Example 2 of 4: Scrolling an image into view 
+
 export default function Forecasts(props)
 {
 

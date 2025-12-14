@@ -16,8 +16,7 @@ const currentURL = "http://localhost/weather-a/index.php";
 const [weatherData, setWeatherData] = React.useState()/*localStorage.getItem('current') 
  ? JSON.parse(localStorage.getItem('current')) : "")*/
 
-const [city, setCity] = React.useState("Riga")/*localStorage.getItem('ipforweather') 
- ? JSON.parse(localStorage.getItem('ipforweather')) : "");*/
+const [city, setCity] = React.useState("Riga")
   
 const [weatherForecastData, setWeatherForecastData] =  React.useState()/*localStorage.getItem('forecast') 
  ? JSON.parse(localStorage.getItem('forecast')) : "")*/
@@ -92,33 +91,35 @@ React.useEffect(() =>{
 
 /*requestWeather();
   requestForecast();*/
+   let forecastSaved = localStorage.getItem('forecast') ? JSON.parse(localStorage.getItem('forecast')) : ""
+      let currentSaved = localStorage.getItem('current') ? JSON.parse(localStorage.getItem('current')) : ""
+
 
     //after refresh or quick revisit to an app, there is no need to call requests every time
     let savedAtTime = localStorage.getItem('updatedAt')
     //non existing or old weather data, if so then make api reqeusts to update data
-    if (savedAtTime == null || Date.now() > Number(savedAtTime) + 30000)//60000 is 10 min 30000 is 0.5min
+    //if (savedAtTime == null || savedAtTime == undefined)
+    if (savedAtTime == null || Date.now() > Number(savedAtTime) + 30000 || forecastSaved === "" || currentSaved === "" )//60000 is 10 min 30000 is 0.5min
     {
         localStorage.setItem('updatedAt',Date.now());
-        console.log("time to call fetch again")
+        console.log("time to update")
         requestWeather();
           requestForecast();
     }
-    else if (savedAtTime !== null)
+    else/* if (savedAtTime !== null)*/
     {//load whats saved?
       console.log("already have fresh one")
-      let forecastSaved = localStorage.getItem('forecast') ? JSON.parse(localStorage.getItem('forecast')) : ""
-      let currentSaved = localStorage.getItem('current') ? JSON.parse(localStorage.getItem('current')) : ""
+    //  let forecastSaved = localStorage.getItem('forecast') ? JSON.parse(localStorage.getItem('forecast')) : ""
+   //   let currentSaved = localStorage.getItem('current') ? JSON.parse(localStorage.getItem('current')) : ""
 
     setWeatherData(currentSaved);
     setWeatherForecastData(forecastSaved)
-
+        console.log(forecastSaved)
+       //????? line 117: Uncaught TypeError: Cannot read properties of undefined (reading 'forecastday')
       setHourForecast((forecastSaved.forecast.forecastday[0].hour))
               setWhatDate(forecastSaved.forecast.forecastday[0].date.substring(5))
 
     }
-
-  //getting and saving city from new user
-   // let savedCity = localStorage.getItem("cityWeather");
       
 },[])
 
@@ -146,7 +147,7 @@ React.useEffect(() =>{
                 <img src='//cdn.weatherapi.com/v4/images/weatherapi_logo.png' 
                 alt="Weather data by WeatherAPI.com" border="0"></img></a>
         
-           {/*Powered by <a href="https://www.weatherapi.com/" title="Free Weather API">WeatherAPI.com</a>*/}
+           Powered by <a href="https://www.weatherapi.com/" title="Free Weather API">WeatherAPI.com</a>
         </div>
       </footer>}
 </div>
