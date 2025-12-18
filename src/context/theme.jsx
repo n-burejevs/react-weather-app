@@ -4,7 +4,7 @@ export const ThemeContext = createContext()
 
 export const ThemeProvider = ({ children }) => {
 
-    const [theme, setTheme] = useState('0');
+    const [theme, setTheme] = useState(1);
     // classname = current.is_day == '0' ? "night-theme" : "day-theme"
     /*
   useEffect(() => {

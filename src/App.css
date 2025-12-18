@@ -56,6 +56,12 @@ footer div{
         padding-left: 3px;
         padding-right: 3px;
 }
+  html, body, #root {
+  /* Set height to 100% of the parent's height. */
+  height: 100%; 
+  /* Prevent horizontal scrolling issues and potential small gaps */
+  width: 100%; 
+}
 }
 
 

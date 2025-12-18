@@ -10,7 +10,7 @@ export default function Forecasts(props)
 {
 
   function showHourForecast(day){
-      //console.log(day)
+
     props.setWhatDate(day.substring(5));
       let hours = props.weatherForecastData.forecast.forecastday;
       hours.map(dayHours => { 

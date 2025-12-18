@@ -1,4 +1,4 @@
-const data = {
+const currentData = {
     "location": {
         "name": "Riga",
         "region": "Riga",
@@ -50,4 +50,4 @@ const data = {
     }
 }
 
-export { data}
+export { currentData}

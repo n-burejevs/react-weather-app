@@ -13,9 +13,8 @@ const { theme, setTheme} = React.useContext(ThemeContext);
 //request data from backend, backend stores secret api key for the actual data from api provider
 //backend should send back json with forecast and current data
 
-  React.useCallback(() => {
-       setTheme(props.weatherData.current.is_day);
-      
+  React.useEffect(() => {
+    if(props.weatherData) setTheme(props.weatherData.current.is_day);
     }, [props.weatherData]);
     
     return(
