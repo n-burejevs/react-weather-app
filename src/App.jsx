@@ -2,10 +2,19 @@ import React from 'react';
 import './App.css'
 import Current from './components/Current'
 import { ThemeContext } from './context/theme';
-import Forecasts from './components/Forecasts'
+import Forecasts from './components/Forecasts';
+import {currentData} from './testdata'
+import {forecastData} from './testforecast'
 
 //https://www.weatherapi.com/docs/conditions.json
 //https://www.weatherapi.com/docs/weather_conditions.json
+
+/**using test data.... 
+ * 
+ * weatherForecastData and weatherData are using testdata, remove the assigned variables, leave undefined
+ * hourForecast also
+ * 
+*/
 
 /** get wheather data calls from parent(this) component, pass the data as props */
 function App() {
@@ -13,17 +22,17 @@ function App() {
 const { theme, setTheme} = React.useContext(ThemeContext);
 
 const currentURL = "http://localhost/weather-a/index.php";
-const [weatherData, setWeatherData] = React.useState()/*localStorage.getItem('current') 
+const [weatherData, setWeatherData] = React.useState(currentData)/*localStorage.getItem('current') 
  ? JSON.parse(localStorage.getItem('current')) : "")*/
 
 const [city, setCity] = React.useState("Riga")
   
-const [weatherForecastData, setWeatherForecastData] =  React.useState()/*localStorage.getItem('forecast') 
+const [weatherForecastData, setWeatherForecastData] =  React.useState(forecastData)/*localStorage.getItem('forecast') 
  ? JSON.parse(localStorage.getItem('forecast')) : "")*/
 
 const forecastURL = "http://localhost/weather-a/forecast.php";
 
-const [ hourForecast, setHourForecast] = React.useState(/*weatherData.forecast.forecastday[0].hour*/);
+const [ hourForecast, setHourForecast] = React.useState(forecastData.forecast.forecastday[0].hour);
 
 const [whatDate, setWhatDate] = React.useState("");    
 
@@ -76,7 +85,7 @@ async function requestWeather()
 
           setWeatherForecastData(forecastWeather);
           //setWhatDate set state here, pass it back to forecast jsx (get mm-dd substring)
-            setHourForecast((forecastWeather.forecast.forecastday[0].hour))
+            setHourForecast(forecastWeather.forecast.forecastday[0].hour)
               setWhatDate(forecastWeather.forecast.forecastday[0].date.substring(5))
 
                  localStorage.setItem('forecast', JSON.stringify(forecastWeather));
@@ -89,8 +98,6 @@ async function requestWeather()
 
 React.useEffect(() =>{
 
-/*requestWeather();
-  requestForecast();*/
    let forecastSaved = localStorage.getItem('forecast') ? JSON.parse(localStorage.getItem('forecast')) : ""
       let currentSaved = localStorage.getItem('current') ? JSON.parse(localStorage.getItem('current')) : ""
 
@@ -103,8 +110,9 @@ React.useEffect(() =>{
     {
         localStorage.setItem('updatedAt',Date.now());
         console.log("time to update")
-        requestWeather();
-          requestForecast();
+        /////////////////////////////using test data, becasue the app will sit on gh pages....
+       // requestWeather();
+        //  requestForecast();
     }
     else/* if (savedAtTime !== null)*/
     {//load whats saved?
@@ -114,7 +122,7 @@ React.useEffect(() =>{
 
     setWeatherData(currentSaved);
     setWeatherForecastData(forecastSaved)
-        console.log(forecastSaved)
+        //console.log(forecastSaved)
        //????? line 117: Uncaught TypeError: Cannot read properties of undefined (reading 'forecastday')
       setHourForecast((forecastSaved.forecast.forecastday[0].hour))
               setWhatDate(forecastSaved.forecast.forecastday[0].date.substring(5))
