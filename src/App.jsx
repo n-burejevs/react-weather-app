@@ -98,6 +98,13 @@ async function requestWeather()
 
 React.useEffect(() =>{
 
+        //console.log(forecastSaved)
+       //????? line 117: Uncaught TypeError: Cannot read properties of undefined (reading 'forecastday')
+      setHourForecast((forecastData.forecast.forecastday[0].hour))
+        setWhatDate(forecastData.forecast.forecastday[0].date.substring(5))    
+
+
+/*
    let forecastSaved = localStorage.getItem('forecast') ? JSON.parse(localStorage.getItem('forecast')) : ""
       let currentSaved = localStorage.getItem('current') ? JSON.parse(localStorage.getItem('current')) : ""
 
@@ -109,15 +116,15 @@ React.useEffect(() =>{
     if (savedAtTime == null || Date.now() > Number(savedAtTime) + 30000 || forecastSaved === "" || currentSaved === "" )//60000 is 10 min 30000 is 0.5min
     {
         localStorage.setItem('updatedAt',Date.now());
-        console.log("time to update")
+       // console.log("time to update")
         /////////////////////////////using test data, becasue the app will sit on gh pages....
-       // requestWeather();
-        //  requestForecast();
+        requestWeather();
+          requestForecast();
     }
-    else/* if (savedAtTime !== null)*/
+    else
     {//load whats saved?
-      console.log("already have fresh one")
-    //  let forecastSaved = localStorage.getItem('forecast') ? JSON.parse(localStorage.getItem('forecast')) : ""
+    //  console.log("already have fresh one")
+   //   let forecastSaved = localStorage.getItem('forecast') ? JSON.parse(localStorage.getItem('forecast')) : ""
    //   let currentSaved = localStorage.getItem('current') ? JSON.parse(localStorage.getItem('current')) : ""
 
     setWeatherData(currentSaved);
@@ -125,9 +132,10 @@ React.useEffect(() =>{
         //console.log(forecastSaved)
        //????? line 117: Uncaught TypeError: Cannot read properties of undefined (reading 'forecastday')
       setHourForecast((forecastSaved.forecast.forecastday[0].hour))
-              setWhatDate(forecastSaved.forecast.forecastday[0].date.substring(5))
+        setWhatDate(forecastSaved.forecast.forecastday[0].date.substring(5))      
 
     }
+    */
       
 },[])
 
