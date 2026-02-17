@@ -1,13 +1,7 @@
   *{
     box-sizing: border-box;
  }
- /*
-.main-content{
-   display: flex;
-    align-items: center;
-    flex-direction: column;
-    width: 100%;
-}*/
+
  body{
   margin: 0;
 }
@@ -31,12 +25,11 @@ footer div{
    height: 100%;
     background-repeat: no-repeat;
     background-attachment: fixed;
-
-       display: flex;
+    display: flex;
     align-items: center;
     flex-direction: column;
     width: 100%;
-    
+    padding-top: 40px;
 }
 .night-theme{
     background-image: linear-gradient(
@@ -47,20 +40,82 @@ footer div{
 
 .day-theme{
     background-image: linear-gradient(
-        rgb(249, 239, 211) 1%, 
-        rgba(207, 252, 249, 1) 73%, 
-        rgb(214, 236, 255) 100%);
+        rgb(244, 229, 188) 1%, 
+        rgb(191, 251, 247) 73%, 
+        rgb(197, 227, 252) 100%);
 }
+
+.location-input{
+    border: none;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    flex: 1;
+    border-radius: 8px;
+    line-height: 22px;
+   text-indent: 10px;
+    /*width: 400px;*/
+}
+.location-form{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+.submit-btn{
+   /* position: absolute;
+    right: 2px;
+    top: 2px;*/
+    margin-left: auto;
+    border-radius: 25%;
+    border-style: none;
+    background-color: rgb(105, 125, 161);
+    color: wheat;
+    padding: 2px 14px;
+    margin-left: 20px;
+    transition: all 0.3s ease-out;
+}
+.submit-btn:hover{
+    background-color: coral;
+    color: black;
+    cursor: pointer;
+}
+.submit-btn:active{
+    scale: 0.9;
+}
+
+.form-container{
+    width: 600px;
+    /*position: relative;*/
+}
+#regular-text::placeholder, #error-text::placeholder{
+    font-weight: bold;
+    opacity: 0.5;
+}
+#error-text::placeholder{
+  color: red;
+}
+
 @media (width < 48em){
     .day-theme, .night-theme{
         padding-left: 3px;
         padding-right: 3px;
+}
+.form-container{
+    width: 100%;
+}
+.submit-btn{
+    margin-left: 10px;
 }
   html, body, #root {
   /* Set height to 100% of the parent's height. */
   height: 100%; 
   /* Prevent horizontal scrolling issues and potential small gaps */
   width: 100%; 
+}
+}
+@media (width >= 48em)
+{
+.submit-btn{
+    margin-left: 20px;
 }
 }
 
