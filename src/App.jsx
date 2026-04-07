@@ -19,7 +19,7 @@ const currentURL = "http://localhost/weather-a/index.php";
 const [weatherData, setWeatherData] = React.useState()/*localStorage.getItem('current') 
  ? JSON.parse(localStorage.getItem('current')) : "")*/
 
-const [city, setCity] = React.useState("")/*(localStorage.getItem('city-weather') 
+const [city, setCity] = React.useState("Riga")/*(localStorage.getItem('city-weather') 
  ? JSON.parse(localStorage.getItem('city-weather')) : "")*/
  const [errorMessage, setErrorMessage] = React.useState("");
   
@@ -51,11 +51,13 @@ async function requestWeather()
             let currentWeather = JSON.parse(result.message);
           setWeatherData(currentWeather);
           localStorage.setItem('current', JSON.stringify(currentWeather));
-          setErrorMessage("");
+          //only setting error message here, because forecast and current requested together
+           setErrorMessage("");
         }
        else if(result.status == "error")
         {
-          setErrorMessage(result.message);
+          console.log("error here")
+          if (!city) setErrorMessage(result.message);
         }
     
     //console.log(JSON.parse(result.message))
@@ -103,8 +105,6 @@ async function requestWeather()
 
 React.useEffect(() =>{
 
-/*requestWeather();
-  requestForecast();*/
    let forecastSaved = localStorage.getItem('forecast') ? JSON.parse(localStorage.getItem('forecast')) : ""
       let currentSaved = localStorage.getItem('current') ? JSON.parse(localStorage.getItem('current')) : ""
 
@@ -137,7 +137,6 @@ React.useEffect(() =>{
 
 React.useEffect(() =>{
   if(city){
-    console.log("running this stuff")
         requestForecast();
         requestWeather();
   }

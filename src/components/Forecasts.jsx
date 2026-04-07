@@ -63,6 +63,15 @@ React.useEffect(() => {
     
   }, [elRef.current]);
 
+  //reset scrollbar in hour forecast when an other day is selected
+  React.useEffect(() => {
+      const el = elRef.current;
+      if(el)
+      {
+        el.scrollBy(-1000, 0)
+      }
+      
+    }, [props.hourForecast]);
 
     return(
 

@@ -64,10 +64,10 @@ footer div{
    /* position: absolute;
     right: 2px;
     top: 2px;*/
+    background-color: rgb(78, 155, 223);
     margin-left: auto;
     border-radius: 25%;
     border-style: none;
-    background-color: rgb(105, 125, 161);
     color: wheat;
     padding: 2px 14px;
     margin-left: 20px;
